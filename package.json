@@ -1,0 +1,16 @@
+{
+  "name": "calenduh",
+  "version": "0.0.0",
+  "description": "Calendar Utils",
+  "main": "index.js",
+  "bin": {
+    "calenduh": "./index.js"
+  },
+  "author": "Simon Reinsperger",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.6.1",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^16.1.0"
+  }
+}
