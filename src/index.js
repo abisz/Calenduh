@@ -1,17 +1,20 @@
 #!/usr/bin/env node
 
 const debug = require('debug')('index');
-
 const Calendar = require('./Calendar.js');
+const moment = require('moment');
 
 const cal = new Calendar();
 
 cal.calendarList()
   .then((lists) => {
-    lists.slice.forEach((list) => {
-      cal.events(list.id)
+    lists.forEach((list) => {
+      cal.events(list.id, {
+        timeMin: moment().toISOString(),
+        timeMax: moment().add(1, 'day').toISOString(),
+      })
         .then((events) => {
-          debug(events);
+          events.forEach(e => console.log(e.summary));
         })
         .catch((err) => {
           debug('Error in index.js cal.events');

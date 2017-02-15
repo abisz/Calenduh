@@ -156,7 +156,7 @@ class Calendar {
     });
   }
 
-  events(calId) {
+  events(calId, opts) {
     debug('Starting retrieving events');
     const authPromise = this.getAuth();
 
@@ -164,16 +164,17 @@ class Calendar {
       authPromise
         .then((auth) => {
           debug('Events successfully authenticated');
-          this.api.events.list({
+
+          this.api.events.list(Object.assign({
             auth,
             calendarId: calId,
-          }, (err, response) => {
+          }, opts), (err, response) => {
             if (err) {
               debug('Error from events.list()');
               debug(err);
               reject(err);
             }
-            resolve(response.items);
+            resolve((response && response.items) || []);
           });
         })
         .catch((err) => {
