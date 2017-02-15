@@ -1,3 +1,9 @@
 node_modules
 
 client_secret.json
+
+npm-debug.log
+
+.eslintcache
+
+.idea

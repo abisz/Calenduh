@@ -7,22 +7,22 @@ const Calendar = require('./Calendar.js');
 const cal = new Calendar();
 
 cal.calendarList()
-  .then( lists => {
-    lists.slice.forEach( list => {
-      
+  .then((lists) => {
+    lists.slice.forEach((list) => {
       cal.events(list.id)
-        .then( events => {
-          console.log(events)
+        .then((events) => {
+          debug(events);
         })
-        .catch( err => {
-          console.log(err);
+        .catch((err) => {
+          debug('Error in index.js cal.events');
+          debug(err);
         });
-    })
+    });
   })
-  .catch( err => {
+  .catch((err) => {
     debug('Error while getting calendar lists');
     debug(err);
-  })
+  });
 
 /*
 if (! process.argv[2]) {

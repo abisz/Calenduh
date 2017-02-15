@@ -2,9 +2,12 @@
   "name": "calenduh",
   "version": "0.0.0",
   "description": "Calendar Utils",
-  "main": "index.js",
+  "main": "./src/index.js",
   "bin": {
-    "calenduh": "./index.js"
+    "calenduh": "./src/index.js"
+  },
+  "scripts": {
+    "lint": "eslint --cache ./src"
   },
   "author": "Simon Reinsperger",
   "license": "MIT",
@@ -12,5 +15,10 @@
     "debug": "^2.6.1",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0"
   }
 }
