@@ -3,7 +3,9 @@
 const debug = require('debug')('calendar');
 const GoogleAuth = require('google-auth-library');
 const google = require('googleapis');
+
 const fs = require('fs');
+const readline = require('readline');
 
 class Calendar {
 
@@ -82,7 +84,6 @@ class Calendar {
       access_type: 'offline',
       scope: this.SCOPES,
     });
-    // eslint-disable-next-line no-undef
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
