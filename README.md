@@ -6,9 +6,15 @@ This is a small wrapper to make working with Google Calendar API mor convenient 
 The main focus is to abstract the authentication process and management.
 
 **! Attention !**
+
 The authentication process requires the first-time user to click on a link in their terminal, accept access to their calendar and copy a verification code into their terminal.
 At this point it isn't possible to do this another way.
 That's why the use cases are mostly command line tools right now.
+
+## Install
+```
+npm install calenduh
+```
 
 ## Getting Started
 Google requires you to register an application in order to work with their APIs.
