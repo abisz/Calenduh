@@ -1,23 +1,28 @@
 {
   "name": "calenduh",
-  "version": "0.0.0",
-  "description": "Calendar Utils",
+  "version": "1.0.0",
+  "description": "Node.js Wrapper for Google Calendar API",
   "main": "./src/index.js",
-  "bin": {
-    "calenduh": "./src/index.js"
-  },
   "scripts": {
     "start": "node ./src/index.js",
     "precommit": "npm run lint",
     "lint": "eslint --cache ./src"
+  },
+  "keywords": [
+    "nodejs",
+    "google",
+    "calendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abisz/Calenduh.git"
   },
   "author": "Simon Reinsperger",
   "license": "MIT",
   "dependencies": {
     "debug": "^2.6.1",
     "google-auth-library": "^0.10.0",
-    "googleapis": "^16.1.0",
-    "moment": "^2.17.1"
+    "googleapis": "^16.1.0"
   },
   "devDependencies": {
     "eslint": "^3.15.0",
