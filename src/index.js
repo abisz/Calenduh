@@ -4,7 +4,7 @@ const debug = require('debug')('index');
 const Calendar = require('./Calendar.js');
 const moment = require('moment');
 
-const cal = new Calendar();
+const cal = new Calendar('./client_secret.json');
 
 cal.calendarList()
   .then((lists) => {

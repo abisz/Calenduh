@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 const debug = require('debug')('calendar');
 const GoogleAuth = require('google-auth-library');
 const google = require('googleapis');
@@ -9,7 +7,7 @@ const readline = require('readline');
 
 class Calendar {
 
-  constructor() {
+  constructor(clientSecretPath) {
     this.TOKEN_DIR = `${process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE}/.credentials/`;
     this.TOKEN_PATH = `${this.TOKEN_DIR}calendar-nodejs-quickstart.json`;
 
@@ -20,6 +18,7 @@ class Calendar {
     ];
 
     this.api = google.calendar('v3');
+    this.clientSecretPath = clientSecretPath;
   }
 
   // AUTHENTICATION
@@ -32,9 +31,9 @@ class Calendar {
         debug('Authentication already available');
         resolve(this.auth);
       } else {
-        debug('Reading client_secret.json');
+        debug('Reading client secret');
         // eslint-disable-next-line consistent-return
-        fs.readFile('client_secret.json', (err, content) => {
+        fs.readFile(this.clientSecretPath, (err, content) => {
           if (err) {
             debug('Error while reading client_secret');
             debug(err);
@@ -128,6 +127,7 @@ class Calendar {
     });
   }
 
+  // UTILS
   calendarList() {
     debug('Starting calendar list');
     const authPromise = this.getAuth();
@@ -164,7 +164,6 @@ class Calendar {
       authPromise
         .then((auth) => {
           debug('Events successfully authenticated');
-
           this.api.events.list(Object.assign({
             auth,
             calendarId: calId,
