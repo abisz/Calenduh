@@ -22,7 +22,6 @@ class Calendar {
   }
 
   // AUTHENTICATION
-  // public function to init authentication, will be skipped if already authenticated
   getAuth() {
     debug('Starting authentication');
 
