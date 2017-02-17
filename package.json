@@ -1,6 +1,6 @@
 {
   "name": "calenduh",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node.js Wrapper for Google Calendar API",
   "main": "./src/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "author": "Simon Reinsperger",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.1.4",
     "debug": "^2.6.1",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0"

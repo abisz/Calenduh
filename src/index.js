@@ -1,6 +1,7 @@
 const debug = require('debug')('calendar');
 const GoogleAuth = require('google-auth-library');
 const google = require('googleapis');
+const asnyc = require('async');
 
 const fs = require('fs');
 const readline = require('readline');
@@ -168,6 +169,10 @@ class Calendar {
             calendarId: calId,
           }, opts), (err, response) => {
             if (err) {
+              // TODO: check if this error can be dealt with
+              // occurs for lists with week numbers and holidays
+              // code: 404,
+              // errors: [ { domain: 'global', reason: 'notFound', message: 'Not Found' } ] }
               debug('Error from events.list()');
               debug(err);
               reject(err);
@@ -179,6 +184,37 @@ class Calendar {
           debug('Event auth problem');
           debug(err);
           reject(err);
+        });
+    });
+  }
+
+  allEvents(opts) {
+    const events = [];
+
+    return new Promise((resolve, reject) => {
+      this.calendarList()
+        .then((lists) => {
+          asnyc.each(lists, (list, cb) => {
+            this.events(list.id, opts)
+              .then((listEvents) => {
+                events.push(...listEvents);
+                cb();
+              })
+              .catch((err) => {
+                debug('Error: allEvents() - this.events()');
+                debug(err);
+                // can't pass error because async each would stop
+                cb();
+              });
+          }, () => {
+            debug('allEvents async.each callback');
+            return resolve(events);
+          });
+        })
+        .catch((err) => {
+          debug('Error: allEvents() - this.calendarList()');
+          debug(err);
+          return reject(err);
         });
     });
   }

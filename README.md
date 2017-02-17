@@ -48,3 +48,13 @@ cal.events(calendarId, {
     // ...
 });
 ```
+
+### allEvents(opts)
+Returns a list of all events from all calendars.
+Options behave the same way as in `events()`.
+```js
+cal.allEvents({})
+    .then((events) => {
+        // ...
+    });
+```
