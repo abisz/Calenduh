@@ -218,6 +218,39 @@ class Calendar {
         });
     });
   }
+
+  createCalendar(name) {
+    debug('Start Create Calendar');
+    const authPromise = this.getAuth();
+
+    return new Promise((resolve, reject) => {
+      authPromise
+        .then((auth) => {
+          debug('createCalendar auth successful');
+          debug('api call calendars.insert');
+
+          this.api.calendars.insert({
+            auth,
+            resource: {
+              summary: name,
+            },
+          }, (err, calendar) => {
+            if (err) {
+              debug('createCalendar Error from api call calendars.insert');
+              debug(err);
+              return reject(err);
+            }
+            debug('createCalendar api call calendars.insert successful');
+            return resolve(calendar);
+          });
+        })
+        .catch((err) => {
+          debug('createCalendar auth problem');
+          debug(err);
+          return reject(err);
+        });
+    });
+  }
 }
 
 module.exports = Calendar;
