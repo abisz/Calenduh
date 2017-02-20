@@ -58,3 +58,24 @@ cal.allEvents({})
         // ...
     });
 ```
+
+### createCalendar(name)
+Create a new calendar with the passed name.
+Returns new calendar.
+```js
+cal.createCalendar('My new Calendar')
+    .then((calendar) => {
+        // ...
+    });
+```
+
+### findOrCreateCalendar(name)
+Checks if calendar with passed name already exists.
+If it does it will be returned.
+If not the calendar will be created and returned.
+```js
+cal.findOrCreateCalendar('My Calendar')
+    .then((calendar) => {
+        // ...
+    });
+```

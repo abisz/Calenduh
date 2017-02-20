@@ -251,6 +251,35 @@ class Calendar {
         });
     });
   }
+
+  findOrCreateCalendar(name) {
+    debug('Starting findOrCreateCalendar');
+
+    return new Promise((resolve, reject) => {
+      this.calendarList()
+        .then((list) => {
+          debug('findOrCreateCalendar - calendarList success');
+
+          const calendar = list.find(l => l.summary === name);
+          if (calendar) return resolve(calendar);
+
+          return this.createCalendar(name)
+            .then((createdCalendar) => {
+              debug('findOrCreateCalendar - createCalendar success');
+              return resolve(createdCalendar);
+            })
+            .catch((err) => {
+              debug('findOrCreateCalendar - createCalendar error');
+              debug(err);
+              return reject(err);
+            });
+        })
+        .catch((err) => {
+          debug('finOrCreateCalendar - calendarList error');
+          return reject(err);
+        });
+    });
+  }
 }
 
 module.exports = Calendar;
