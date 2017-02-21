@@ -245,7 +245,7 @@ class Calendar {
           });
         })
         .catch((err) => {
-          debug('createCalendar auth problem');
+          debug('createCalendar auth error');
           debug(err);
           return reject(err);
         });
@@ -276,6 +276,47 @@ class Calendar {
         })
         .catch((err) => {
           debug('finOrCreateCalendar - calendarList error');
+          return reject(err);
+        });
+    });
+  }
+
+  createEvent(calendarId, name, startDateTime, endDateTime, opts = {}) {
+    debug('Starting addEvent');
+    const authPromise = this.getAuth();
+
+    return new Promise((resolve, reject) => {
+      authPromise
+        .then((auth) => {
+          debug('addEvent auth successful');
+
+          // the api requires an object called resource with the event data
+          const resource = Object.assign({
+            start: {
+              dateTime: startDateTime,
+            },
+            end: {
+              dateTime: endDateTime,
+            },
+            summary: name,
+          }, opts);
+
+          this.api.events.insert({
+            auth,
+            calendarId,
+            resource,
+          }, (err, event) => {
+            if (err) {
+              debug('createEvent api events.insert error');
+              debug(err);
+              return reject(err);
+            }
+            return resolve(event);
+          });
+        })
+        .catch((err) => {
+          debug('addEvent auth error');
+          debug(err);
           return reject(err);
         });
     });

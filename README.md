@@ -79,3 +79,21 @@ cal.findOrCreateCalendar('My Calendar')
         // ...
     });
 ```
+
+### createEvent(calendarId, name, startDateTime, endDateTime, [opts])
+Creates an event for a specific calendar and returns it.
+`startDateTime` and `endDateTime` are required, additonal data can be passed in `opts` object.
+Full list of available options can be found in the [official documentation](https://developers.google.com/google-apps/calendar/v3/reference/events/insert).
+```js
+cal.createEvent(
+    calendarId,
+    'My Event',
+    '2017-02-21T10:00:00.000Z',
+    '2017-02-21T12:00:00.000Z',
+    {
+        location: 'My Location',
+    }
+).then((event) => {
+    // ...
+});
+```
