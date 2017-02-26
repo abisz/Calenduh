@@ -156,7 +156,7 @@ class Calendar {
     });
   }
 
-  events(calId, opts) {
+  events(calId, opts = {}) {
     debug('Starting retrieving events');
     const authPromise = this.getAuth();
 
@@ -188,7 +188,7 @@ class Calendar {
     });
   }
 
-  allEvents(opts) {
+  allEvents(opts = {}) {
     const events = [];
 
     return new Promise((resolve, reject) => {
