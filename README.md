@@ -97,3 +97,12 @@ cal.createEvent(
     // ...
 });
 ```
+
+### deleteEvent(calendarId, eventId)
+Deletes single event by Id, requires the Id of the parent calendar.
+```js
+cal.deleteEvent(calendarId, eventId)
+.then(() => {
+    // ...
+});
+```

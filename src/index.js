@@ -321,6 +321,37 @@ class Calendar {
         });
     });
   }
+
+  deleteEvent(calendarId, eventId) {
+    debug('Starting deleteEvent()');
+    const authPromise = this.getAuth();
+
+    return new Promise((resolve, reject) => {
+      authPromise
+        .then((auth) => {
+          debug('deleteEvent auth successful');
+
+          this.api.events.delete({
+            auth,
+            calendarId,
+            eventId,
+          }, (err) => {
+            if (err) {
+              debug('Error from deleting event');
+              debug(err);
+              return reject(err);
+            }
+            debug('Deleting event successful');
+            return resolve();
+          });
+        })
+        .catch((err) => {
+          debug('deleteEvent auth error');
+          debug(err);
+          return reject(err);
+        });
+    });
+  }
 }
 
 module.exports = Calendar;
