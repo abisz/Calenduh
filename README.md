@@ -98,20 +98,41 @@ cal.createEvent(
 });
 ```
 
+### createEvents(calendarId, events)
+Creates multiple events. There is an artificial timeout between each request to give the api time to process, currently there is no better solution for this.
+`events` is an array, each object has to have the following structure:
+```js
+{
+    name: 'Name of event',
+    start: '2017-02-21T10:00:00.000Z',
+    end: '2017-02-21T10:00:00.000Z',
+    opts: {
+        location: 'My Location',
+    }
+}
+```
+Usage:
+```js
+cal.createEvents(calendarId, events)
+    .then(() => {
+        // ...
+    });
+```
+
 ### deleteEvent(calendarId, eventId)
 Deletes single event by Id, requires the Id of the parent calendar.
 ```js
 cal.deleteEvent(calendarId, eventId)
-.then(() => {
-    // ...
-});
+    .then(() => {
+        // ...
+    });
 ```
 
 ### deleteEvents(calendarId, eventIds = [])
 Deletes multiple events by Id. This is simply a convenient function which performs multiple deleteEvent() calls.
 ```js
 cal.deleteEvents(calendarId, eventIds)
-.then(() => {
-    // ...
-});
+    .then(() => {
+        // ...
+    });
 ```

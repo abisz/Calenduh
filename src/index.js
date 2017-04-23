@@ -322,6 +322,45 @@ class Calendar {
     });
   }
 
+  createEvents(calendarId, events) {
+    debug('Starting createEvents()');
+
+    return new Promise((resolve, reject) => {
+      async.eachSeries(events, (e, cb) => {
+        debug(`creating event: ${e.event}`);
+
+        this.createEvent(
+          calendarId, e.name, e.start,
+          // eslint-disable-next-line comma-dangle
+          e.end, e.opts
+        ).then((event) => {
+          process.stdout.write(`Created event: ${event.summary}\n`);
+          setTimeout(() => {
+            cb();
+          }, 150);
+        }).catch((err) => {
+          debug('An error occurred while creating an event');
+          debug(err);
+
+          setTimeout(() => {
+            // can't pass err, because async would stop
+            cb();
+          }, 200);
+        });
+      }, (err) => {
+        debug('Finished creating events');
+
+        if (err) {
+          debug('Error occured while creating events');
+          debug(err);
+          return reject();
+        }
+
+        return resolve();
+      });
+    });
+  }
+
   deleteEvent(calendarId, eventId) {
     debug('Starting deleteEvent()');
     const authPromise = this.getAuth();
