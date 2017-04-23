@@ -106,3 +106,12 @@ cal.deleteEvent(calendarId, eventId)
     // ...
 });
 ```
+
+### deleteEvents(calendarId, eventIds = [])
+Deletes multiple events by Id. This is simply a convenient function which performs multiple deleteEvent() calls.
+```js
+cal.deleteEvents(calendarId, eventIds)
+.then(() => {
+    // ...
+});
+```

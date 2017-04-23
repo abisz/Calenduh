@@ -352,6 +352,31 @@ class Calendar {
         });
     });
   }
+
+  deleteEvents(calendarId, eventIds) {
+    debug('Starting deleteEvents()');
+
+    return new Promise((resolve, reject) => {
+      async.eachSeries(eventIds, (eventId, cb) => {
+        debug(`deleting event ${eventId}`);
+
+        this.deleteEvent(calendarId, eventId)
+          .then(() => cb())
+          // can't pass err, because async would stop
+          .catch(() => cb());
+      }, (err) => {
+        debug('finished deleting events');
+
+        if (err) {
+          debug('An error occurred while deleting');
+          debug(err);
+          return reject(err);
+        }
+
+        return resolve();
+      });
+    });
+  }
 }
 
 module.exports = Calendar;
