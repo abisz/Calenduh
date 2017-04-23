@@ -1,7 +1,7 @@
 const debug = require('debug')('calendar');
 const GoogleAuth = require('google-auth-library');
 const google = require('googleapis');
-const asnyc = require('async');
+const async = require('async');
 
 const fs = require('fs');
 const readline = require('readline');
@@ -194,7 +194,7 @@ class Calendar {
     return new Promise((resolve, reject) => {
       this.calendarList()
         .then((lists) => {
-          asnyc.each(lists, (list, cb) => {
+          async.each(lists, (list, cb) => {
             this.events(list.id, opts)
               .then((listEvents) => {
                 events.push(...listEvents);
